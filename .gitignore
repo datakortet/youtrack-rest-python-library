@@ -1,3 +1,12 @@
 *.pyc
 .idea
 */.idea
+*.py~
+youtrack.egg-info/dependency_links.txt
+youtrack.egg-info/PKG-INFO
+youtrack.egg-info/SOURCES.txt
+youtrack.egg-info/top_level.txt
+python/youtrack.egg-info/top_level.txt
+python/youtrack.egg-info/SOURCES.txt
+python/youtrack.egg-info/PKG-INFO
+python/youtrack.egg-info/dependency_links.txt
