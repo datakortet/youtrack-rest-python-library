@@ -3,19 +3,23 @@
 
 """Connect to and interact with a REST server and its objects."""
 
-
 import new
 import re
 import sys
 import urllib
-import urllib2
-import urlparse
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 from string import Template
 from pyactiveresource import connection
-from pyactiveresource import element_containers
 from pyactiveresource import formats
 from pyactiveresource import util
-
 
 VALID_NAME = re.compile('[a-z_]\w*')  # Valid python attribute names
 

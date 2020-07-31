@@ -34,7 +34,10 @@ import StringIO
 import gzip
 import zlib
 import httplib
-import urlparse
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 import base64
 import os
 import copy

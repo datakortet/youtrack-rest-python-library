@@ -1,9 +1,13 @@
 import HTMLParser
 import calendar
 import re
-from urllib import unquote
 import urllib
-import urllib2
+from urllib import unquote
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 import xml
 import datetime
 import sys

@@ -1,21 +1,27 @@
 import calendar
+import sys
 import time
 from datetime import datetime
-import httplib2
-from xml.dom import minidom
-import sys
-import youtrack
 from xml.dom import Node
-import urllib2
+from xml.dom import minidom
+
+import httplib2
+import youtrack
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 import urllib
 from xml.sax.saxutils import escape, quoteattr
 import json
-import urllib2_file
 import tempfile
 import functools
 
+
 def urlquote(s):
     return urllib.quote(utf8encode(s), safe="")
+
 
 def utf8encode(source):
     if isinstance(source, unicode):

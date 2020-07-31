@@ -5,11 +5,20 @@
 
 __author__ = 'Mark Roach (mrroach@google.com)'
 
-
 import urllib
-import urllib2
-import urlparse
-from StringIO import StringIO
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
+try:
+    from StringIO import StringIO  ## for Python 2
+except ImportError:
+    from io import StringIO  ## for Python 3
 from pprint import pformat
 
 

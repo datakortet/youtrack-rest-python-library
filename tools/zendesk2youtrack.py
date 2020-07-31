@@ -1,16 +1,22 @@
-import sys
-from youtrack.connection import Connection
-from youtrackImporter import YouTrackImporter, YouTrackImportConfig
-from youtrackImporter import AUTO_ATTACHED, NAME, NUMBER_IN_PROJECT, TYPE, POLICY
-from youtrack import User, Group, Comment, Attachment
-import zendesk
-from zendesk.zendeskClient import ZendeskClient
-import datetime
 import calendar
-import urllib2
+import datetime
+import sys
 
+from youtrack import User, Group, Comment
+from youtrack.connection import Connection
+
+import zendesk
+from youtrackImporter import AUTO_ATTACHED, NAME, TYPE, POLICY
+from youtrackImporter import YouTrackImporter, YouTrackImportConfig
+from zendesk.zendeskClient import ZendeskClient
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 
 __author__ = 'user'
+
 
 def main():
     source_url, source_login, source_password, target_url, target_login, target_password, project_id = sys.argv[1:8]

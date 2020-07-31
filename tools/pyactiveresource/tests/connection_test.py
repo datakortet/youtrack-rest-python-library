@@ -5,10 +5,16 @@
 
 __author__ = 'Mark Roach (mrroach@google.com)'
 
-
 import unittest
-import urllib2
-from StringIO import StringIO
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
+try:
+    from StringIO import StringIO  ## for Python 2
+except ImportError:
+    from io import StringIO  ## for Python 3
 from pyactiveresource import connection
 from pyactiveresource import util
 from pyactiveresource.tests import http_fake

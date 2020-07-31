@@ -1,19 +1,22 @@
 #! /usr/bin/env python
 import calendar
-import functools
-import os
-import sys
-import re
-import getopt
 import datetime
-import urllib2
+import functools
+import getopt
+import os
+import re
+import sys
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 import jira
 from jira.client import JiraClient
 from youtrack import Issue, YouTrackException, Comment, Link, WorkItem
 import youtrack
 from youtrack.connection import Connection
 from youtrack.importHelper import create_bundle_safe
-
 
 jt_fields = []
 

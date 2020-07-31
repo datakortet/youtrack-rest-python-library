@@ -33,8 +33,15 @@ import email.FeedParser
 import StringIO
 import gzip
 import zlib
-import httplib
-import urlparse
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 import urllib
 import base64
 import os
@@ -43,6 +50,7 @@ import calendar
 import time
 import random
 import errno
+
 try:
     from hashlib import sha1 as _sha, md5 as _md5
 except ImportError:

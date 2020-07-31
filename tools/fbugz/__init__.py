@@ -1,6 +1,9 @@
 import cgi
 from time import time
-import urllib2
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 
 CATEGORY = dict([])
 PRIORITY = dict([])

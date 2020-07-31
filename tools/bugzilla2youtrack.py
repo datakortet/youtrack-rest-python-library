@@ -1,11 +1,17 @@
 #! /usr/bin/env python
 
 import calendar
+
 import youtrack
-from youtrack.connection import Connection
-from bugzilla.bzClient import Client
 from youtrack import *
-from StringIO import StringIO
+from youtrack.connection import Connection
+
+from bugzilla.bzClient import Client
+
+try:
+    from StringIO import StringIO  ## for Python 2
+except ImportError:
+    from io import StringIO  ## for Python 3
 import bugzilla.defaultBzMapping
 import bugzilla
 import sys

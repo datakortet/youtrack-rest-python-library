@@ -1,18 +1,21 @@
 #! /usr/bin/env python
 
+import calendar
+import getopt
 import os
+import re
 import sys
 import traceback
-import re
-import getopt
-import calendar
-import urllib2
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 import redmine
 import youtrack
 import youtrack.connection
 from youtrack.importHelper import create_bundle_safe
 from datetime import datetime
-
 
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
 sys.stderr = sys.stdout

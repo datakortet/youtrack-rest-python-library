@@ -1,5 +1,8 @@
 import urllib
-import urllib2
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 
 from BeautifulSoup import BeautifulSoup, CData
 

@@ -1,21 +1,22 @@
 # coding=UTF-8
 
-from youtrack.connection import Connection, httplib2
-from xml.etree.ElementTree import fromstring
-import random
-import urllib
 import httplib
-import urllib2
 
-import socks
+from youtrack.connection import Connection, httplib2
 
-httplib2.debuglevel=4
-httplib.debuglevel=4
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 
-yt = Connection('http://teamsys.intellij.net', 'resttest', 'resttest')#, proxy_info = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, 'localhost', 8888))
-#yt = Connection('http://localhost:8080', 'root', 'root')
+httplib2.debuglevel = 4
+httplib.debuglevel = 4
 
-#yt = Connection('http://v-rot-mne-nogi.myjetbrains.com/youtrack', 'root', 'root') #, proxy_info = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, 'localhost', 8888))
+yt = Connection('http://teamsys.intellij.net', 'resttest',
+                'resttest')  # , proxy_info = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, 'localhost', 8888))
+# yt = Connection('http://localhost:8080', 'root', 'root')
+
+# yt = Connection('http://v-rot-mne-nogi.myjetbrains.com/youtrack', 'root', 'root') #, proxy_info = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, 'localhost', 8888))
 
 print 'connected'
 

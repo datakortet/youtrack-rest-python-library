@@ -103,7 +103,10 @@ import socket
 import stat
 import sys
 import urllib
-import urllib2
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 
 CHUNK_SIZE = 65536
 

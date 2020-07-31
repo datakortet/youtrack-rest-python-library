@@ -1,15 +1,25 @@
 #! /usr/bin/env python
 
-import urllib2
-from youtrack.connection import Connection
-from mantis.mantisClient import MantisClient
-from youtrack import *
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
 import sys
+
+from youtrack import *
+from youtrack.connection import Connection
+
 import mantis
 import mantis.defaultMantis
-from StringIO import StringIO
+from mantis.mantisClient import MantisClient
+
+try:
+    from StringIO import StringIO  ## for Python 2
+except ImportError:
+    from io import StringIO  ## for Python 3
 from youtrack.importHelper import *
 import youtrack.importHelper
+
 
 def main():
     target_url, target_login, target_pass, mantis_db, mantis_host, mantis_port, mantis_login, mantis_pass = sys.argv[

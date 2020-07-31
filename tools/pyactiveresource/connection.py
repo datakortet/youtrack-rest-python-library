@@ -7,8 +7,15 @@ import base64
 import logging
 import socket
 import sys
-import urllib2
-import urlparse
+
+try:
+    import urllib2
+except ImportError:
+    import urllib.request as urllib2
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 from pyactiveresource import formats
 
 
