@@ -1,7 +1,11 @@
-from trac.env import Environment
 from trac.attachment import Attachment
+from trac.env import Environment
 from tracLib import *
-from ConfigParser import ConfigParser
+
+try:
+    from ConfigParser import ConfigParser
+except ImportError:
+    from configparser import ConfigParser
 import tracLib
 import tracLib.timetracking
 
