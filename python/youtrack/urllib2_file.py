@@ -252,7 +252,7 @@ class newHTTPHandler(urllib2.BaseHandler):
                     v_vars.append( (k, v) )
         # no file ? convert to string
         if len(v_vars) > 0 and len(v_files) == 0:
-            data = urllib.urlencode(v_vars)
+            data = urllib.parse.urlencode(v_vars)
             v_files = []
             v_vars = []
         host = req.get_host()
@@ -297,7 +297,7 @@ class newHTTPHandler(urllib2.BaseHandler):
                 l = send_data(v_vars, v_files, boundary, h)
             elif len(v_vars) > 0:
                 # if data is passed as dict ...
-                data = urllib.urlencode(v_vars)
+                data = urllib.parse.urlencode(v_vars)
                 h.send(data)
             else:
                 # "normal" urllib2.urlopen()

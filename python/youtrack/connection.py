@@ -140,7 +140,7 @@ class Connection(object):
         if permittedGroup is not None:
             params['permittedGroup'] = permittedGroup
 
-        return self._req('PUT', '/issue', urllib.urlencode(params), content_type='application/x-www-form-urlencoded')
+        return self._req('PUT', '/issue', urllib.parse.urlencode(params), content_type='application/x-www-form-urlencoded')
 
     def deleteIssue(self, issue_id):
         return self._req('DELETE', '/issue/%s' % issue_id)
@@ -240,7 +240,7 @@ class Connection(object):
             except youtrack.YouTrackException:
                 params['created'] = str(calendar.timegm(datetime.now().timetuple()) * 1000)
 
-        url = self.baseUrl + url_prefix + issueId + "/attachment?" + urllib.urlencode(params)
+        url = self.baseUrl + url_prefix + issueId + "/attachment?" + urllib.parse.urlencode(params)
         r = urllib2.Request(url,
             headers=headers, data=post_data)
         #r.set_proxy('localhost:8888', 'http')
@@ -314,7 +314,7 @@ class Connection(object):
 
     def importIssuesXml(self, projectId, assigneeGroup, xml):
         return self._reqXml('PUT', '/import/' + urlquote(projectId) + '/issues?' +
-                                   urllib.urlencode({'assigneeGroup': assigneeGroup}),
+                                   urllib.parse.urlencode({'assigneeGroup': assigneeGroup}),
             xml, 400).toxml()
 
     def importLinks(self, links):
@@ -414,7 +414,7 @@ class Connection(object):
         if isinstance(assigneeGroup, unicode):
             assigneeGroup = assigneeGroup.encode('utf-8')
 
-        url = '/import/' + urlquote(projectId) + '/issues?' + urllib.urlencode({'assigneeGroup': assigneeGroup})
+        url = '/import/' + urlquote(projectId) + '/issues?' + urllib.parse.urlencode({'assigneeGroup': assigneeGroup})
         if isinstance(url, unicode):
             url = url.encode('utf-8')
         result = self._reqXml('PUT', url, xml, 400)
@@ -585,7 +585,7 @@ class Connection(object):
         first = True
         users = []
         position = 0
-        user_search_params = urllib.urlencode(params)
+        user_search_params = urllib.parse.urlencode(params)
         while True:
             response, content = self._req('GET', "/admin/user/?start=%s&%s" % (str(position), user_search_params))
             position += 10
@@ -628,7 +628,7 @@ class Connection(object):
         if isinstance(_desc, unicode):
             _desc = _desc.encode('utf-8')
         return self._put('/admin/project/' + projectId + '?' +
-                         urllib.urlencode({'projectName': _name,
+                         urllib.parse.urlencode({'projectName': _name,
                                            'description': _desc + ' ',
                                            'projectLeadLogin': projectLeadLogin,
                                            'lead': projectLeadLogin,
@@ -650,7 +650,7 @@ class Connection(object):
     # TODO this function is deprecated
     def createSubsystemDetailed(self, projectId, name, isDefault, defaultAssigneeLogin):
         self._put('/admin/project/' + projectId + '/subsystem/' + urlquote(name.encode('utf-8')) + "?" +
-                  urllib.urlencode({'isDefault': str(isDefault),
+                  urllib.parse.urlencode({'isDefault': str(isDefault),
                                     'defaultAssignee': defaultAssigneeLogin}))
 
         return 'Created'
@@ -682,12 +682,12 @@ class Connection(object):
             params['releaseDate'] = str(releaseDate)
         return self._put(
             '/admin/project/' + urlquote(projectId) + '/version/' + urlquote(name.encode('utf-8')) + "?" +
-            urllib.urlencode(params))
+            urllib.parse.urlencode(params))
 
     def getIssues(self, projectId, filter, after, max):
         #response, content = self._req('GET', '/project/issues/' + urlquote(projectId) + "?" +
         response, content = self._req('GET', '/issue/byproject/' + urlquote(projectId) + "?" +
-                                             urllib.urlencode({'after': str(after),
+                                             urllib.parse.urlencode({'after': str(after),
                                                                'max': str(max),
                                                                'filter': filter}))
         xml = minidom.parseString(content)
@@ -696,7 +696,7 @@ class Connection(object):
     def getNumberOfIssues(self, filter = '', waitForServer=True):
         while True:
           urlFilterList = [('filter',filter)]
-          finalUrl = '/issue/count?' + urllib.urlencode(urlFilterList)
+          finalUrl = '/issue/count?' + urllib.parse.urlencode(urlFilterList)
           response, content = self._req('GET', finalUrl)
           result = eval(content.replace('callback',''))
           numberOfIssues = result['value']
@@ -720,7 +720,7 @@ class Connection(object):
                     ('max',str(max)),
                     ('filter',filter)]
         response, content = self._req('GET', '/issue' + "?" +
-                                             urllib.urlencode(urlJobby))
+                                             urllib.parse.urlencode(urlJobby))
         xml = minidom.parseString(content)
         return [youtrack.Issue(e, self) for e in xml.documentElement.childNodes if e.nodeType == Node.ELEMENT_NODE]
 
@@ -751,7 +751,7 @@ class Connection(object):
                 params[p] = params[p].encode('utf-8')
 
         response, content = self._req('POST', '/issue/' + issueId + "/execute?" +
-                                              urllib.urlencode(params), body='')
+                                              urllib.parse.urlencode(params), body='')
 
         return "Command executed"
 
@@ -786,7 +786,7 @@ class Connection(object):
                 params[key] = params[key].encode('utf-8')
 
         self._put('/admin/customfield/field/' + urlquote(customFieldName.encode('utf-8')) + '?' +
-                  urllib.urlencode(params), )
+                  urllib.parse.urlencode(params), )
 
         return "Created"
 
@@ -823,7 +823,7 @@ class Connection(object):
                 _params[key] = _params[key].encode('utf-8')
         return self._put(
             '/admin/project/' + projectId + '/customfield/' + urlquote(customFieldName) + '?' +
-            urllib.urlencode(_params))
+            urllib.parse.urlencode(_params))
 
     def deleteProjectCustomField(self, project_id, pcf_name):
         self._req('DELETE', '/admin/project/' + urlquote(project_id) + "/customfield/" + urlquote(pcf_name))
@@ -848,7 +848,7 @@ class Connection(object):
         if isinstance(inwardName, unicode):
             inwardName = inwardName.encode('utf-8')
         return self._put('/admin/issueLinkType/' + urlquote(name) + '?' +
-                         urllib.urlencode({'outwardName': outwardName,
+                         urllib.parse.urlencode({'outwardName': outwardName,
                                            'inwardName': inwardName,
                                            'directed': directed}))
 
@@ -910,7 +910,7 @@ class Connection(object):
         if options_limit is not None:
             opts['optionsLimit'] = options_limit
         return youtrack.IntelliSense(
-            self._get('/issue/intellisense?' + urllib.urlencode(opts)), self)
+            self._get('/issue/intellisense?' + urllib.parse.urlencode(opts)), self)
 
     def getCommandIntelliSense(self, issue_id, command,
                                run_as=None, caret=None, options_limit=None):
@@ -923,7 +923,7 @@ class Connection(object):
             opts['optionsLimit'] = options_limit
         return youtrack.IntelliSense(
             self._get('/issue/%s/execute/intellisense?%s'
-                      % (issue_id, urllib.urlencode(opts))), self)
+                      % (issue_id, urllib.parse.urlencode(opts))), self)
 
     def getGlobalTimeTrackingSettings(self):
         try:
@@ -1022,7 +1022,7 @@ class Connection(object):
                         else:
                             params[e] = value[e]
                 if len(params):
-                    request += urllib.urlencode(params)
+                    request += urllib.parse.urlencode(params)
         else:
             request = "/admin/customfield/userBundle/%s/" % urlquote(bundle.name.encode('utf-8'))
             if isinstance(value, youtrack.User):

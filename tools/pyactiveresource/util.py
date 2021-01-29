@@ -225,7 +225,7 @@ def to_query(query_params):
             annotated[key] = value
         return annotated
     annotated = annotate_params(query_params)
-    return urllib.urlencode(annotated, True)
+    return urllib.parse.urlencode(annotated, True)
 
 
 def xml_pretty_format(element, level=0):

@@ -44,7 +44,7 @@ def create_response_key(method, url, request_headers):
     """
     parsed = urlparse.urlsplit(url)
     qs = urlparse.parse_qs(parsed.query)
-    query = urllib.urlencode([(k, qs[k]) for k in sorted(qs.iterkeys())])
+    query = urllib.parse.urlencode([(k, qs[k]) for k in sorted(qs.iterkeys())])
     return str((
         method,
         urlparse.urlunsplit((

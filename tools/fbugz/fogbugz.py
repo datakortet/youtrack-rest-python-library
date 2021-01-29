@@ -70,7 +70,7 @@ class FogBugz:
             kwargs["token"] = self._token
 
         try:
-            response = BeautifulSoup(self._opener.open(self._url+urllib.urlencode(dict([k, v.encode('utf-8') if isinstance(v,basestring) else v ] for k, v in kwargs.items())))).response
+            response = BeautifulSoup(self._opener.open(self._url+urllib.parse.urlencode(dict([k, v.encode('utf-8') if isinstance(v,basestring) else v ] for k, v in kwargs.items())))).response
         except urllib2.URLError, e:
             raise FogBugzConnectionError(e)
         except UnicodeDecodeError, e:

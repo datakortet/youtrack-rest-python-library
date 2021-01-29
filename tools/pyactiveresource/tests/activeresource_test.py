@@ -152,7 +152,7 @@ class ActiveResourceTest(unittest.TestCase):
         self.assertEqual(self.arnold, arnold.attributes)
 
     def test_find_should_handle_array_query_args(self):
-        query = urllib.urlencode({'vars[]': ['a', 'b', 'c']}, True)
+        query = urllib.parse.urlencode({'vars[]': ['a', 'b', 'c']}, True)
         self.http.respond_to(
             'GET', '/people.xml?%s' % query, {},
             util.to_xml([self.arnold], root='people'))
@@ -160,7 +160,7 @@ class ActiveResourceTest(unittest.TestCase):
         self.assertEqual(self.arnold, arnold.attributes)
 
     def test_find_should_handle_dictionary_query_args(self):
-        query = urllib.urlencode({'vars[key]': 'val'}, True)
+        query = urllib.parse.urlencode({'vars[key]': 'val'}, True)
         self.http.respond_to(
             'GET', '/people.xml?%s' % query, {},
             util.to_xml([self.arnold], root='people'))
@@ -168,7 +168,7 @@ class ActiveResourceTest(unittest.TestCase):
         self.assertEqual(self.arnold, arnold.attributes)
 
     def test_find_should_handle_dictionary_query_args_with_array_value(self):
-        query = urllib.urlencode({'vars[key][]': ['val1', 'val2']}, True)
+        query = urllib.parse.urlencode({'vars[key][]': ['val1', 'val2']}, True)
         self.http.respond_to(
             'GET', '/people.xml?%s' % query, {},
             util.to_xml([self.arnold], root='people'))
